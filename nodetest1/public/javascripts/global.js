@@ -1,6 +1,5 @@
 var app = angular.module('myapp', [ 'ngMaterial' ]);
 
-
 app.controller('myCtrl', function($scope, $http) {
   var socket = io.connect('http://localhost:3001');
 
@@ -67,6 +66,9 @@ app.controller('myCtrl', function($scope, $http) {
     ).then(function success(response) {
       $scope.sendTask = null;
       updateSite();
+      $scope.addTaskForm.$setPristine();
+      $scope.addTaskForm.$setUntouched();
+
       console.log("task added")
     }, function error(response) {
       console.log("task could not be added")

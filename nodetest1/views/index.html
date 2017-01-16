@@ -24,10 +24,6 @@
 
 </head>
 <body ng-app="myapp" >
-
-
-
-
   <div ng-controller='myCtrl' ng-cloak>
     <a href="/signout" class='text-center new-account'>Sign out</a>
 
@@ -46,25 +42,31 @@
       </li>
     </ul>
     <div class="user">
-      <form ng-submit="addTask()">
+      <form name="addTaskForm" ng-submit="addTask()">
 
-              <md-input-container class="md-block" flex-gt-sm>
+              <md-input-container class="md-block bigInput" flex-gt-sm>
         <label>Name:</label> <input required name="taskName" type="text" ng-model="sendTask.name" />
-      </md-input-container class="md-block" flex-gt-sm>
-      <md-input-container class="md-block" flex-gt-sm>
-        <label>Content</label><input required rows="4"   ng-model="sendTask.content"/>
+      </md-input-container>
+      <md-input-container class="md-block bigInput" flex-gt-sm>
+        <label>Content:</label><input required name="taskContent"  ng-model="sendTask.content"/>
 
 
       </md-input-container>
-        <md-radio-group required name="radiobuttons_group" ng-model="sendTask.group" ng-required="true">
 
-          <md-radio-button value="developers" >Developers</md-radio-button>
-          <md-radio-button value="designers"> Designers </md-radio-button>
-          <md-radio-button value="dsc."> Msc </md-radio-button>
-          <md-radio-button value="all">All</md-radio-button>
+        <md-input-container>
+                <div layout="row" layout-align="space-between center">
+          <label>Team</label>
+          <md-select ng-model="sendTask.group" required>
 
-        </md-radio-group>
-        <md-button class="md-raised md-primary" type="submit">Add</md-button>
+            <md-option ng-repeat="group in groups" ng-value="group" ng-disabled="$index === 1" >
+              {{group}}
+            </md-option>
+          </md-select>
+
+        </div>
+        </md-input-container>
+
+        <md-button class="md-raised md-primary"  type="submit reset">Add</md-button>
       </form>
     </div>
 

@@ -19,6 +19,9 @@ a {
 }
 
 
+.md-input-has-value.bigInput > input {
+    font-size: 150%;
+}
 
 .form-signin{
     max-width: 330px;
