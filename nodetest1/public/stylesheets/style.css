@@ -7,7 +7,9 @@ a {
   color: #00B7FF;
 }
 
-
+md-card md-card-title{
+  padding: 10px 10px 10px;
+}
 .md-headline{
   width:70%;
   word-wrap: break-word;

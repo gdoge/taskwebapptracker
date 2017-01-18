@@ -67,8 +67,9 @@ router.delete('/deletetask/:id', function(req, res) {
 //   * POST task
 //   */
  router.post('/addtask', function(req, res) {
-
-   var groupArray = req.body.group.split(",");
+  console.log("ADDING TASKS" + req.body.group);
+   var groupArray = req.body.group;
+  console.log(groupArray);
 
 
     var newTask = new Task({

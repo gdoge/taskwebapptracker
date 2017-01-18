@@ -20,8 +20,12 @@
               <input type="email" name="email" placeholder="Email" required="required" class="form-control"/>
               <input type="text" name="firstName" placeholder="First Name" required="required" class="form-control"/>
               <input type="text" name="lastName" placeholder="Last Name" required="required" class="form-control"/>
-              <input type="text" name="group" placeholder="your Team" required="required" class="form-control"/>
-
+              <select class="form-control" name="group" required="required" >
+                <option value="Developers">Developer</option>
+                <option value="Designers">Designer</option>
+                <option value="Managers">Manager</option>
+                <option value="None">None</option>
+              </select>
               <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button><span class="clearfix"></span>
             </form>
           </div>

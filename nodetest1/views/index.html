@@ -1,21 +1,30 @@
 <!DOCTYPE html>
+<!-- <html> -->
 <html>
 <head>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="stylesheets/angular-material.min.css">
   <link rel="stylesheet" href="stylesheets/style.css">
 
 
   <script src="/angular/angular.min.js"></script>
 
-  <!-- Angular Material Dependencies -->
   <script src="/angular/angular-animate.min.js"></script>
+  <script src="/angular/angular-route.min.js"></script>
   <script src="/angular/angular-aria.min.js"></script>
 
-  <!-- Angular Material Javascript-->
+  <script src="/angular/angular-messages.min.js"></script>
   <script src="/angular/angular-material.min.js"></script>
   <script src="/javascripts/global.js"></script>
+<!--
 
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-messages.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script> -->
+  <script src="/javascripts/global.js"></script>
 <script src="/javascripts/socket.io.js"></script>
 <script>
 
@@ -23,10 +32,12 @@
 </script>
 
 </head>
-<body ng-app="myapp" >
-  <div ng-controller='myCtrl' ng-cloak>
-    <a href="/signout" class='text-center new-account'>Sign out</a>
-
+<body ng-app="myapp" layout="row" ng-cloak>
+  <div ng-controller='myCtrl' ng-cloak class="md-padding" ng-cloak>
+    <!-- <a href="/signout" class='text-center new-account' style="float: right">Sign out</a> -->
+    <form action="/signout" >
+        <md-button class="md-raised"  type="submit" style="float: right">Sign Out</md-button>
+    </form>
     <ul>
       <li ng-repeat="task in Tasks">
         {{ task.taskName + ', ' + task.content }}
@@ -54,17 +65,16 @@
       </md-input-container>
 
         <md-input-container>
-                <div layout="row" layout-align="space-between center">
+                <!-- <div layout="row" layout-align="space-between center"> -->
           <label>Team</label>
-          <md-select ng-model="sendTask.group" required>
+          <md-select ng-model="sendTask.group" multiple required>
 
-            <md-option ng-repeat="group in groups" ng-value="group" ng-disabled="$index === 1" >
+            <md-option ng-repeat="group in groups" ng-value="group" >
               {{group}}
             </md-option>
           </md-select>
 
-        </div>
-        </md-input-container>
+
 
         <md-button class="md-raised md-primary"  type="submit reset">Add</md-button>
       </form>
@@ -74,13 +84,13 @@
     </div>
     <md-content>
       <md-tabs md-dynamic-height md-border-bottom>
-        <md-tab id="tab1" label="TASKS" >
+        <md-tab id="tab1" label="ALL TASKS" >
           <!-- <md-tab-label>All Tasks</md-tab-label> -->
           <md-content  class="md-padding">
             <div  layout="row"  layout-align="space-between stretch" >
               <div  flex="33" >
                 <md-content  ng-repeat="task in Tasks" ng-if="  task.status == 'open' ">
-                  <md-card style=" overflow-x: hidden; " >
+                  <md-card style=" overflow-x: hidden; "  md-colors="{background: 'blue'}" >
                     <md-card-title>
                       <md-card-title-text>
                         <div class="md-headline" style=" width:30%; word-wrap: break-word;">{{task.taskName}}</div>
@@ -100,7 +110,7 @@
               </div>
               <div   flex="33" >
                 <md-content ng-repeat="task in Tasks" ng-if="  task.status == 'progress' ">
-                  <md-card >
+                  <md-card md-colors="{background: 'green'}" >
                     <md-card-title>
                       <md-card-title-text>
                         <span class="md-headline">{{task.taskName}}</span>
@@ -125,7 +135,7 @@
               <div flex="33" >
 
                 <md-content   ng-repeat="task in Tasks" ng-if="  task.status == 'done' ">
-                  <md-card >
+                  <md-card md-colors="{background: 'red'}" >
                     <md-card-title>
                       <md-card-title-text>
                         <span class="md-headline">{{task.taskName}}</span>
@@ -136,8 +146,8 @@
 
                     <md-card-content class="md-card-content">{{task.content}}</md-card-content>
 
-                    <md-card-actions layout="row" layout-align="end center">
-                      <md-button ng-click="moveTask(task._id, task.status)">not Done</md-button>
+                    <md-card-actions layout="row" layout-align="end center"  >
+                      <md-button ng-click="moveTask(task._id, task.status)" md-colors="{background: 'red' + '-700'}">not Done</md-button>
                     </md-card-actions>
                   </md-card>
 

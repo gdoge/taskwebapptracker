@@ -9,5 +9,6 @@ module.exports = mongoose.model('Task',{
 	status: String,
 	assignedTo: String,
 	creator: String,
-	date: Date
+	date: Date,
+	priority: String
 });
