@@ -11,13 +11,20 @@ md-card md-card-title{
   padding: 10px 10px 10px;
 }
 .md-headline{
-  width:70%;
+  width: 10em;
   word-wrap: break-word;
 }
 
 .md-card-content{
   width:80%;
   word-wrap: break-word;
+    align-self: center;
+    border-radius: 5px;
+    padding: 10px 10px 10px;
+}
+
+md-card md-card-title md-card-title-text:only-child .md-subhead{
+  padding-top:0px
 }
 
 

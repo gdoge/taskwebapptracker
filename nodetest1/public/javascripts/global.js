@@ -32,8 +32,24 @@ app.controller('myCtrl', function($scope, $http) {
     url: "/db/tasklist"}
   ).then(function success(response) {
     console.log("populate table success")
-    console.log(response)
+    // console.log(response.data.priority)
     response.data.date = new Date().toDateString(response.data.date);
+    // 
+    // switch (response.data.priority) {
+    //   case "High":
+    //   console.log("task color red");
+    //   $scope.Tasks.color = "red";
+    //   break;
+    //   case "Medium":
+    //   console.log("task color green");
+    //   $scope.Tasks.color = "green";
+    //   break;
+    //   case "Low":
+    //   console.log("task color blue");
+    //   $scope.Tasks.color = "blue";
+    // }
+
+
     console.log("RESPONSE DATE:"+  response.data.date)
     $scope.Tasks = response.data;
   }, function error(response) {
@@ -63,7 +79,21 @@ app.controller('myCtrl', function($scope, $http) {
     console.log("GROuP: " + $scope.sendTask.group);
 
     if($scope.sendTask.group ===  undefined ){
-return;
+        return;
+    }
+
+    switch ($scope.sendTask.priority) {
+      case "High":
+      console.log("task color red");
+      $scope.sendTask.color = "red";
+      break;
+      case "Medium":
+      console.log("task color green");
+      $scope.sendTask.color = "green";
+      break;
+      case "Low":
+      console.log("task color blue");
+      $scope.sendTask.color = "blue"
     }
 
 
@@ -119,6 +149,7 @@ $scope.moveTask = function (taskId, taskStatus) {
     break;
     case "done":
     task.status  = 'progress';
+    task.assignedTo = $scope.user.user.firstName + " " + $scope.user.user.lastName;
     console.log("move from done to " + task.status);
     case "backToOpen":
     task.status = 'open';

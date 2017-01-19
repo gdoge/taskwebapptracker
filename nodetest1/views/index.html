@@ -2,7 +2,8 @@
 <!-- <html> -->
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
   <link rel="stylesheet" href="stylesheets/angular-material.min.css">
   <link rel="stylesheet" href="stylesheets/style.css">
 
@@ -15,15 +16,7 @@
 
   <script src="/angular/angular-messages.min.js"></script>
   <script src="/angular/angular-material.min.js"></script>
-  <script src="/javascripts/global.js"></script>
-<!--
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-messages.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script> -->
   <script src="/javascripts/global.js"></script>
 <script src="/javascripts/socket.io.js"></script>
 <script>
@@ -47,6 +40,8 @@
         "teams: " + {{task.group}}
         {{task.date| date:'EEE-MM-yyyy HH:mm:ss'}}
         "Priority:" {{task.priority}}
+        "color:" {{task.color}}
+
 
 
         <button value="DELETE TASK {{task._id}}" ng-click="deleteTask(task._id)">DEL</button>
@@ -104,24 +99,30 @@
             <div  layout="row"  layout-align="space-between stretch" >
               <div  flex="33" >
                 <md-content  ng-repeat="task in Tasks" ng-if="  task.status == 'open' ">
-                  <md-card style=" overflow-x: hidden; "  md-colors="{background: 'blue'}" >
+                  <md-card style=" overflow-x: hidden; " md-colors="{background: task.color}" >
                     <md-card-title>
                       <md-card-title-text>
-                        <div class="md-headline" style=" width:30%; word-wrap: break-word;">{{task.taskName}}</div>
+                        <span class="md-subhead" style=" float:right">{{task.priority}}</span>
+
+                        <div class="md-headline" style="word-wrap: break-word;">{{task.taskName}}</div>
                         <span class="md-subhead"> {{task.date| date:'EEE-MM-yyyy HH:mm:ss'}}</span>
+
+
                       </md-card-title-text>
 
                     </md-card-title>
 
-                    <md-card-content class="md-card-content">{{task.content }}</md-card-content>
+                    <md-card-content class="md-card-content" md-colors="{background: task.color + '-900'}">{{task.content }}</md-card-content>
 
                     <md-card-actions layout="row" layout-align="end center">
-                      <md-button ng-click="moveTask(task._id, task.status)">in Progress</md-button>
+                      <md-button ng-click="moveTask(task._id, task.status)">In Progress</md-button>
                     </md-card-actions>
                   </md-card>
 
                 </md-content>
               </div>
+
+
               <div   flex="33" >
                 <md-content ng-repeat="task in Tasks" ng-if="  task.status == 'progress' ">
                   <md-card md-colors="{background: 'green'}" >
@@ -129,7 +130,7 @@
                       <md-card-title-text>
                         <span class="md-headline">{{task.taskName}}</span>
                         <span class="md-subhead"> {{task.date| date:'EEE-MM-yyyy HH:mm:ss'}}</span>
-
+                        <span class="md-subhead"> Assigned to  {{task.assignedTo}}</span>
                       </md-card-title-text>
                     </md-card-title>
 
@@ -149,11 +150,12 @@
               <div flex="33" >
 
                 <md-content   ng-repeat="task in Tasks" ng-if="  task.status == 'done' ">
-                  <md-card md-colors="{background: 'red'}" >
+                  <md-card md-colors="background: {{task.color}}" >
                     <md-card-title>
                       <md-card-title-text>
                         <span class="md-headline">{{task.taskName}}</span>
                         <span class="md-subhead"> {{task.date| date:'EEE-MM-yyyy HH:mm:ss'}}</span>
+                        <span class="md-subhead"> Was assigned to {{task.assignedTo}}</span>
 
                       </md-card-title-text>
                     </md-card-title>
@@ -161,7 +163,7 @@
                     <md-card-content class="md-card-content">{{task.content}}</md-card-content>
 
                     <md-card-actions layout="row" layout-align="end center"  >
-                      <md-button ng-click="moveTask(task._id, task.status)" md-colors="{background: 'red' + '-700'}">not Done</md-button>
+                      <md-button ng-click="moveTask(task._id, task.status)" md-colors="{background: 'red' + '-700'}">Not Done</md-button>
                     </md-card-actions>
                   </md-card>
 
@@ -248,7 +250,7 @@
             </md-tab-body>
           </md-tab>
           <md-tab id="tab3">
-            <md-tab-label>Item Three</md-tab-label>
+            <md-tab-label>Your Team</md-tab-label>
             <md-tab-body>
               View for Item #3 <br/>
               data.selectedIndex = 2;

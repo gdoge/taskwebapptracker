@@ -77,7 +77,8 @@ router.delete('/deletetask/:id', function(req, res) {
       status : "open",
       creator : req.body.creator,
       date : req.body.date,
-      priority : req.body.priority
+      priority : req.body.priority,
+      color : req.body.color
     })
 
     newTask.save(function (err, data) {

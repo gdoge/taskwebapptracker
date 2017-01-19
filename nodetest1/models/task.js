@@ -10,5 +10,6 @@ module.exports = mongoose.model('Task',{
 	assignedTo: String,
 	creator: String,
 	date: Date,
-	priority: String
+	priority: String,
+	color: String
 });
