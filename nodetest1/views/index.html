@@ -46,6 +46,7 @@
         "assignedTo" + {{task.assignedTo}}
         "teams: " + {{task.group}}
         {{task.date| date:'EEE-MM-yyyy HH:mm:ss'}}
+        "Priority:" {{task.priority}}
 
 
         <button value="DELETE TASK {{task._id}}" ng-click="deleteTask(task._id)">DEL</button>
@@ -74,6 +75,19 @@
             </md-option>
           </md-select>
 
+        </md-input-container>
+
+        <md-input-container>
+                <!-- <div layout="row" layout-align="space-between center"> -->
+          <label>Priority</label>
+          <md-select ng-model="sendTask.priority">
+
+            <md-option ng-repeat="priority in priorities" selected="selected" required ng-value="priority" >
+              {{priority}}
+            </md-option>
+          </md-select>
+
+        </md-input-container>
 
 
         <md-button class="md-raised md-primary"  type="submit reset">Add</md-button>

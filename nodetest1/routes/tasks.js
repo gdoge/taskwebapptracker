@@ -67,9 +67,7 @@ router.delete('/deletetask/:id', function(req, res) {
 //   * POST task
 //   */
  router.post('/addtask', function(req, res) {
-  console.log("ADDING TASKS" + req.body.group);
    var groupArray = req.body.group;
-  console.log(groupArray);
 
 
     var newTask = new Task({
@@ -78,7 +76,8 @@ router.delete('/deletetask/:id', function(req, res) {
       group : groupArray,
       status : "open",
       creator : req.body.creator,
-      date : req.body.date
+      date : req.body.date,
+      priority : req.body.priority
     })
 
     newTask.save(function (err, data) {

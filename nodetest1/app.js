@@ -14,7 +14,13 @@ var routes = require('./routes/index');
 // var db = monk('localhost:27017/nodetest2');
 
 
+
 var app = express();
+// Using the flash middleware provided by connect-flash to store messages in session
+// and displaying in templates
+var flash = require('connect-flash');
+
+
 
 mongoose.connect(dbConfig.url);
 var db = mongoose.connection;
@@ -26,7 +32,6 @@ db.once('open', function () {
 console.log('connected.');
 });
 
-// var bootstrap = require('bootstrap');
 
 //config passport
 
@@ -55,7 +60,7 @@ var expressSession = require('express-session');
 app.use(expressSession({secret: 'mySecretKey',  resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(flash());
 
 
 // view engine setup
@@ -74,10 +79,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Using the flash middleware provided by connect-flash to store messages in session
-// and displaying in templates
-var flash = require('connect-flash');
-app.use(flash());
+
 
 // Initialize Passport
 var initPassport = require('./passport/init');
@@ -126,6 +128,11 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
+
+
+
 
 // app.post('/login',
 //   passport.authenticate('local'),

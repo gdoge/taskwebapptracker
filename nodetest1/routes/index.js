@@ -43,9 +43,9 @@ module.exports = function(passport){
 
   /* Handle Login POST */
   router.post('/login', passport.authenticate('login', {
-    successRedirect: '/index',
-    failureRedirect: '/',
-    failureFlash : true
+		successRedirect : '/index', // redirect to the secure profile section
+		failureRedirect : '/login', // redirect back to the signup page if there is an error
+		failureFlash : true // allow flash messages
   }));
 
   /* GET Registration Page */

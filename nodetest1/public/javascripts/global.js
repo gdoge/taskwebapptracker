@@ -23,7 +23,7 @@ app.controller('myCtrl', function($scope, $http) {
   };
 
   $scope.groups = ["Developers", "Designers", "Managers"];
-  $scope.priority = ["High", "Medium", "Low"];
+  $scope.priorities = ["High", "Medium", "Low"];
 
 
 
@@ -61,6 +61,12 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.sendTask.date = new Date(Date.now()).toISOString();
     console.log("DATUM:" +   $scope.sendTask.date);
     console.log("GROuP: " + $scope.sendTask.group);
+
+    if($scope.sendTask.group ===  undefined ){
+return;
+    }
+
+
     $http({
       method: 'POST',
       data:  $scope.sendTask,
