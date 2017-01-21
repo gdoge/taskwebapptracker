@@ -8,21 +8,19 @@ app.controller('myCtrl', function($scope, $http) {
     updateSite();
     console.log("socket updated the Site")
   });
-  // $scope.sendTask={
-  //   group:"all"
-  // }
+
 
   $scope.tabdata = {
     selectedIndex: 0
   };
-  $scope.next = function() {
-    $scope.tabdata.selectedIndex = Math.min($scope.tabdata.selectedIndex + 1, 2) ;
-  };
-  $scope.previous = function() {
-    $scope.tabdata.selectedIndex = Math.max($scope.tabdata.selectedIndex - 1, 0);
-  };
+  // $scope.next = function() {
+  //   $scope.tabdata.selectedIndex = Math.min($scope.tabdata.selectedIndex + 1, 2) ;
+  // };
+  // $scope.previous = function() {
+  //   $scope.tabdata.selectedIndex = Math.max($scope.tabdata.selectedIndex - 1, 0);
+  // };
 
-  $scope.groups = ["Developers", "Designers", "Managers"];
+  $scope.groups = ["Developers", "Designers", "Managers", "All"];
   $scope.priorities = ["High", "Medium", "Low"];
 
 
@@ -34,21 +32,6 @@ app.controller('myCtrl', function($scope, $http) {
     console.log("populate table success")
     // console.log(response.data.priority)
     response.data.date = new Date().toDateString(response.data.date);
-    // 
-    // switch (response.data.priority) {
-    //   case "High":
-    //   console.log("task color red");
-    //   $scope.Tasks.color = "red";
-    //   break;
-    //   case "Medium":
-    //   console.log("task color green");
-    //   $scope.Tasks.color = "green";
-    //   break;
-    //   case "Low":
-    //   console.log("task color blue");
-    //   $scope.Tasks.color = "blue";
-    // }
-
 
     console.log("RESPONSE DATE:"+  response.data.date)
     $scope.Tasks = response.data;
@@ -65,6 +48,8 @@ app.controller('myCtrl', function($scope, $http) {
     console.log(response)
     $scope.user = response.data;
     $scope.currentUser = $scope.user.user.firstName + " " + $scope.user.user.lastName;
+    $scope.currentTeam = $scope.user.user.group;
+    console.log("User " + $scope.currentUser + " Team:" +   $scope.currentTeam  )
   }, function error(response) {
     console.log("get user name error")
     console.log(response)
@@ -145,12 +130,14 @@ $scope.moveTask = function (taskId, taskStatus) {
     break;
     case "progress":
     task.status  = 'done';
+    task.assignedTo = $scope.user.user.firstName + " " + $scope.user.user.lastName;
     console.log("move from progress to " + task.status);
     break;
     case "done":
     task.status  = 'progress';
     task.assignedTo = $scope.user.user.firstName + " " + $scope.user.user.lastName;
     console.log("move from done to " + task.status);
+    break;
     case "backToOpen":
     task.status = 'open';
     task.assignedTo = "";

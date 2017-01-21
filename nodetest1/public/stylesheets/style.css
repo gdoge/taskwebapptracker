@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 30px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -7,20 +7,42 @@ a {
   color: #00B7FF;
 }
 
+
+  .md-button {
+width: 100% ;
+white-space: normal;
+  }
+
+
+
+
+md-card .md-actions:not(.layout-column) .md-button:not(.md-icon-button):first-of-type, md-card md-card-actions:not(.layout-column) .md-button:not(.md-icon-button):first-of-type {
+    margin-left: 4px;
+
+}
+
+md-card .md-actions:not(.layout-column) .md-button:not(.md-icon-button):last-of-type, md-card md-card-actions:not(.layout-column) .md-button:not(.md-icon-button):last-of-type{
+  margin-top: 10px;
+  margin-right: 4px
+}
+
 md-card md-card-title{
   padding: 10px 10px 10px;
 }
 .md-headline{
-  width: 10em;
+  width:80%;
   word-wrap: break-word;
 }
-
+md-card-title-text{
+  overflow: auto;
+}
 .md-card-content{
   width:80%;
   word-wrap: break-word;
     align-self: center;
     border-radius: 5px;
-    padding: 10px 10px 10px;
+    padding: 0px;
+    font-size: 1.3em;
 }
 
 md-card md-card-title md-card-title-text:only-child .md-subhead{
