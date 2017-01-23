@@ -14,12 +14,8 @@ var bodyParser = require('body-parser');
 // });
 
 
-// As with any middleware it is quintessential to call next()
 // if the user is authenticated
 var isAuthenticated = function (req, res, next) {
-	// if user is authenticated in the session, call the next() to call the next request handler
-	// Passport adds this method to request object. A middleware is allowed to add properties to
-	// request and response objects
 	if (req.isAuthenticated())
 		return next();
 	// if the user is not authenticated then redirect him to the login page
@@ -30,38 +26,37 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function(passport){
 
-  /* GET login page. */
+//show index page on normal index page
   router.get('/', isAuthenticated, function(req, res) {
     res.render('index', { message: req.flash('message') });
   });
 
 	router.get('/login', function(req, res) {
-		// Display the Login page with any flash message, if any
-		res.render('login', { message: req.flash('message') });
+		//flash does not work with plain html
+ 		res.render('login', { message: req.flash('message') });
 	});
 
 
-  /* Handle Login POST */
+	//send login data to the server
   router.post('/login', passport.authenticate('login', {
-		successRedirect : '/index', // redirect to the secure profile section
-		failureRedirect : '/login', // redirect back to the signup page if there is an error
-		failureFlash : true // allow flash messages
+		successRedirect : '/index', // redirect to the index
+		failureRedirect : '/login', // redirect back to the login
+		failureFlash : true // allow flash messages (don't work)
   }));
 
-  /* GET Registration Page */
+	//show sign up page
   router.get('/signup', function(req, res){
     res.render('register',{message: req.flash('message')});
   });
 
 
-  /* Handle Registration POST */
   router.post('/signup', passport.authenticate('signup', {
     successRedirect: '/index',
     failureRedirect: '/signup',
     failureFlash : true
   }));
 
-	/* Handle Logout */
+	//logout
 	router.get('/signout', function(req, res) {
 		req.logout();
 		res.redirect('/');
@@ -72,10 +67,11 @@ module.exports = function(passport){
 
 
 router.get('/index', isAuthenticated, function(req, res){
+	//flash does not work wiht plain html
   res.render('index', { message: req.flash('message') });
 });
 
-
+//get user data
 router.get('/api/user_data', function(req, res) {
 
             if (req.user === undefined) {
@@ -87,22 +83,3 @@ router.get('/api/user_data', function(req, res) {
                 });
             }
         });
-
-
-
-
-
-
-
-/* GET Userlist page. */
-// router.get('/userlist', function(req, res) {
-//     var db = req.db;
-//     var collection = db.get('userlist');
-//     collection.find({},{},function(e,docs){
-//         res.render('userlist', {
-//             "userlist" : docs
-//         });
-//     });
-// });
-
-// module.exports = router;

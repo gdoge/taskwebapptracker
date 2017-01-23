@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 
+//route to a local mongodb
 // var mongo = require('mongodb');
 // var monk = require('monk');
 // var db = monk('localhost:27017/nodetest2');
@@ -17,7 +18,7 @@ var routes = require('./routes/index');
 
 var app = express();
 // Using the flash middleware provided by connect-flash to store messages in session
-// and displaying in templates
+// and displaying in templates. Does not work in plain html.
 var flash = require('connect-flash');
 
 
@@ -56,7 +57,7 @@ server.listen(3001, function(){
 // Configuring Passport
 var passport = require('passport');
 var expressSession = require('express-session');
-// TODO - Why Do we need this key ?
+
 app.use(expressSession({secret: 'mySecretKey',  resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -70,7 +71,7 @@ app.set('view engine', 'html');
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
+// favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());

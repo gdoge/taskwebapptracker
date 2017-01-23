@@ -17,11 +17,14 @@ module.exports = function(passport){
                     // Username does not exist, log the error and redirect back
                     if (!user){
                         console.log('User Not Found with username '+username);
+												//flahs does not work with plain html
                         return done(null, false, req.flash('message', 'User Not found.'));
                     }
+										
                     // User exists but wrong password, log the error
                     if (!isValidPassword(user, password)){
                         console.log('Invalid Password');
+												//flahs does not work with plain html
                         return done(null, false, req.flash('message', 'Invalid Password')); // redirect back to login page
                     }
                     // User and password both match, return user from done method

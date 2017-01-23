@@ -46,13 +46,11 @@ module.exports = function(passport){
                     }
                 });
             };
-            // Delay the execution of findOrCreateUser and execute the method
-            // in the next tick of the event loop
             process.nextTick(findOrCreateUser);
         })
     );
 
-    // Generates hash using bCrypt
+    // Generates hash using bcrypt
     var createHash = function(password){
         return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
     }

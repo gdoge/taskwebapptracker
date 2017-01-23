@@ -16,7 +16,7 @@ var Task = require('../models/task');
 
 
 
-
+//get the tasks from the mongodb server
 router.get('/tasklist',  function(req, res) {
 
  Task.find({}, function (err, tasks) {
@@ -27,7 +27,7 @@ router.get('/tasklist',  function(req, res) {
 })
 });
 
-
+//move the task
 router.post('/movetask/:id', function(req, res){
   console.log("id to move "   + req.params.id);
   console.log("moved to " + req.body.status )
@@ -49,10 +49,7 @@ router.post('/movetask/:id', function(req, res){
 
 
 
-//
-// /*
- // * DELETE task.
- // */
+//delete task
 router.delete('/deletetask/:id', function(req, res) {
   console.log("id to delete " + req.params.id)
 
@@ -63,9 +60,7 @@ router.delete('/deletetask/:id', function(req, res) {
 
 });
 
-//  /*
-//   * POST task
-//   */
+// add task
  router.post('/addtask', function(req, res) {
    var groupArray = req.body.group;
 
@@ -92,4 +87,6 @@ router.delete('/deletetask/:id', function(req, res) {
     });
 
   });
+
+  
  module.exports = router;
